@@ -1,4 +1,4 @@
-package co.appbrewery.bmicalculator;
+package com.udubouski.bmiCalculator;
 
 import android.os.Bundle;
 

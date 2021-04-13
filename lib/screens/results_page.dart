@@ -19,24 +19,25 @@ class ResultsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('BMI Calculator'),
+          title: Text('BMI DETERMINANT'),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Container(
-                padding: EdgeInsets.all(15.0),
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  'Your Result',
-                  style: kTitleTextStyle,
+              child: SizedBox.expand(
+                child: Container(
+                  child: Text(
+                    'Your Result',
+                    style: kTitleTextStyle,
+                  ),
+                  alignment: Alignment.center,
                 ),
               ),
             ),
             Expanded(
-              flex: 5,
+              flex: 3,
               child: ReusableCard(
                 colour: kActiveCardColour,
                 cardChild: Column(
@@ -46,6 +47,7 @@ class ResultsPage extends StatelessWidget {
                     Text(
                       resultText,
                       style: kResultTextStyle,
+                      textAlign: TextAlign.center,
                     ),
                     Text(
                       bmiResult,

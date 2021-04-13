@@ -19,16 +19,18 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Gender selectedGender;
+  Gender selectedGender = Gender.male;
   int height = 180;
-  int weight = 74;
-  int age = 19;
+  int weight = 90;
+  int age = 20;
 
   @override
   Widget build(BuildContext context) {
+    //MediaQueryData queryData;
+    //queryData = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('BMI CALCULATOR'),
+        title: Text('BMI DETERMINANT'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -107,9 +109,11 @@ class _InputPageState extends State<InputPage> {
                       min: 120.0,
                       max: 220.0,
                       onChanged: (double newValue) {
-                        setState(() {
-                          height = newValue.round();
-                        });
+                        setState(
+                          () {
+                            height = newValue.round();
+                          },
+                        );
                       },
                     ),
                   ),
@@ -130,9 +134,19 @@ class _InputPageState extends State<InputPage> {
                           'WEIGHT',
                           style: kLabelTextStyle,
                         ),
-                        Text(
-                          weight.toString(),
-                          style: kNumberTextStyle,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          children: [
+                            Text(
+                              weight.toString(),
+                              style: kNumberTextStyle,
+                            ),
+                            Text(
+                              'kg',
+                              style: kLabelTextStyle,
+                            )
+                          ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -141,7 +155,10 @@ class _InputPageState extends State<InputPage> {
                               icon: FontAwesomeIcons.minus,
                               onPressed: () {
                                 setState(() {
-                                  weight--;
+                                  if (weight > 1)
+                                    weight--;
+                                  else
+                                    weight = 1;
                                 });
                               },
                             ),
@@ -172,9 +189,19 @@ class _InputPageState extends State<InputPage> {
                           'AGE',
                           style: kLabelTextStyle,
                         ),
-                        Text(
-                          age.toString(),
-                          style: kNumberTextStyle,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          children: [
+                            Text(
+                              age.toString(),
+                              style: kNumberTextStyle,
+                            ),
+                            Text(
+                              'y',
+                              style: kLabelTextStyle,
+                            )
+                          ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -183,7 +210,10 @@ class _InputPageState extends State<InputPage> {
                               icon: FontAwesomeIcons.minus,
                               onPressed: () {
                                 setState(() {
-                                  age--;
+                                  if (age > 1)
+                                    age--;
+                                  else
+                                    age = 1;
                                 });
                               },
                             ),
@@ -210,8 +240,13 @@ class _InputPageState extends State<InputPage> {
           BottomButton(
             buttonTitle: 'CALCULATE',
             onTap: () {
-              CalculatorBrain calc =
-                  CalculatorBrain(height: height, weight: weight);
+              CalculatorBrain calc = CalculatorBrain(
+                  height: height,
+                  weight: weight,
+                  age: age,
+                  selectedGender: (selectedGender == Gender.male)
+                      ? Gender.male.index
+                      : Gender.female.index);
 
               Navigator.push(
                 context,
